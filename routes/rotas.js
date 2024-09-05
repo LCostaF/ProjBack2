@@ -3,6 +3,7 @@ import express from 'express'
 import autenticacao from '../controllers/autenticacaoController.js'
 import UsuarioController from '../controllers/usuarioController.js'
 import RevistaController from '../controllers/revistaController.js'
+import AssinaturaController from '../controllers/assinaturaController.js'
 
 import { validarUsuario } from '../inputValidadores/validarUsuario.js'
 import { validaLogin } from '../inputValidadores/validarLogin.js'
@@ -28,5 +29,12 @@ router.get('/revistas', RevistaController.listarRevistas);
 router.get('/revista/:id', RevistaController.obterRevistaPorId);
 router.put('/revista/atualizar/:id', verificarToken, RevistaController.atualizarRevista);
 router.delete('/revista/excluir/:id', verificarToken, RevistaController.excluirRevista);
+
+// Rotas para Assinatura
+router.post('/assinatura/cadastrar', verificarToken, AssinaturaController.cadastrar);
+router.get('/assinaturas', verificarToken, AssinaturaController.listarAssinaturas);
+router.get('/assinatura/:id', verificarToken, AssinaturaController.obterAssinaturaPorId);
+router.put('/assinatura/atualizar/:id', verificarToken, AssinaturaController.atualizarAssinatura);
+router.delete('/assinatura/excluir/:id', verificarToken, AssinaturaController.excluirAssinatura);
 
 export default router;
