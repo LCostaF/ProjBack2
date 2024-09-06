@@ -1,5 +1,6 @@
-import jwt from 'jsonwebtoken'
-import Usuario from '../models/Usuario.js'
+// Arquivo para o middleware de autenticação
+import jwt from 'jsonwebtoken';
+import Usuario from '../models/Usuario.js';
 
 async function verificarToken(req, res, next) {
     const cabecalhoAutorizacao = req.headers['authorization']

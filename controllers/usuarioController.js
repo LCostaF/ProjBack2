@@ -1,6 +1,8 @@
-import Usuario from '../models/Usuario.js'
+// Arquivo controller para Usuários
+import Usuario from '../models/Usuario.js';
 
 const UsuarioController = {
+    // Função de cadastro
     async cadastrar(req, res) {
         const { nome, email, senha, admin } = req.body
 
@@ -31,6 +33,7 @@ const UsuarioController = {
         }
     },
 
+    // Função de definição de um usuário como administrador
     async criarAdmin(req, res) {
         const { email } = req.body;
 
@@ -51,6 +54,7 @@ const UsuarioController = {
         }
     },
 
+    // Função de exclusão
     async excluirUsuario(req, res) {
         const { id } = req.params
 
@@ -72,6 +76,7 @@ const UsuarioController = {
         }
     },
 
+    // Função de atualização
     async atualizarUsuario(req, res) {
         const { id } = req.params;
         const { nome, email, senha, admin } = req.body
@@ -107,30 +112,34 @@ const UsuarioController = {
         }
     },
 
+    // Função de listagem
     async listarUsuarios(req, res) {
         try {
             const { pagina = 1, limite = 5 } = req.query
-
-            console.log("Parâmetros:", { pagina, limite });
             
-            const usuariosNaoAdmin = await Usuario.find({ admin: false })
+            if (limite != 5 && limite != 10 && limite != 30) {
+                res.status(400).json({ mensagem: 'O limite deve ser 5, 10 ou 30.' });
+            } else {
+                const usuariosNaoAdmin = await Usuario.find({ admin: false })
                 .limit(limite * 1)
                 .skip((pagina - 1) * limite)
                 .exec();
             
-            const contagem = await Usuario.countDocuments({ admin: false });
-            
-            res.json({
-                usuariosNaoAdmin,
-                totalPaginas: Math.ceil(contagem / limite),
-                paginaAtual: pagina,
-            });
+                const contagem = await Usuario.countDocuments({ admin: false });
+                
+                res.json({
+                    usuariosNaoAdmin,
+                    totalPaginas: Math.ceil(contagem / limite),
+                    paginaAtual: pagina,
+                });
+            }
         } catch (erro) {
             console.error('Erro detalhado:', erro);
             res.status(500).json({ mensagem: 'Erro no servidor' })
         }
     },
 
+    // Função de busca
     async obterUsuarioPorId(req, res) {
         try {
             const usuario = await Usuario.findById(req.params.id)

@@ -1,4 +1,5 @@
-import mongoose from "mongoose"
+// Arquivo para conectar com o banco de dados MongoDB
+import mongoose from "mongoose";
 
 async function conexaoBanco() {
 

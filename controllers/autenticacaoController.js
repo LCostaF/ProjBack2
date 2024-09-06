@@ -1,7 +1,6 @@
-import bcrypt from "bcrypt"
-import jwt from 'jsonwebtoken'
-
-import Usuario from '../models/Usuario.js'
+import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
+import Usuario from '../models/Usuario.js';
 
 const autenticacao = async (req, res) => {
 

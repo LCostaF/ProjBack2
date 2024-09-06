@@ -1,6 +1,8 @@
-import Revista from '../models/Revista.js'
+// Arquivo controller para Revistas
+import Revista from '../models/Revista.js';
 
 const RevistaController = {
+    // Função de cadastro
     async cadastrar(req, res) {
         try {
             const revista = new Revista({
@@ -21,29 +23,35 @@ const RevistaController = {
         }
     },
 
+    // Função de listagem
     async listarRevistas(req, res) {
         const { pagina = 1, limite = 5 } = req.query;
 
-        try {
-            const revistas = await Revista.find()
-                .limit(limite * 1)
-                .skip((pagina - 1) * limite)
-                .exec();
-
-            const contagem = await Revista.countDocuments();
-
-            res.json({
-                revistas,
-                totalPaginas: Math.ceil(contagem / limite),
-                paginaAtual: pagina,
-            });
-        } catch (erro) {
-            res.status(500).json({
-                erro: "Erro no servidor"
-            });
+        if (limite != 5 && limite != 10 && limite != 30) {
+            res.status(400).json({ mensagem: 'O limite deve ser 5, 10 ou 30.' });
+        } else {
+            try {
+                const revistas = await Revista.find()
+                    .limit(limite * 1)
+                    .skip((pagina - 1) * limite)
+                    .exec();
+    
+                const contagem = await Revista.countDocuments();
+    
+                res.json({
+                    revistas,
+                    totalPaginas: Math.ceil(contagem / limite),
+                    paginaAtual: pagina,
+                });
+            } catch (erro) {
+                res.status(500).json({
+                    erro: "Erro no servidor"
+                });
+            }
         }
     },
 
+    // Função de busca
     async obterRevistaPorId(req, res) {
         const { id } = req.params;
 
@@ -60,7 +68,7 @@ const RevistaController = {
         }
     },
 
-    // Atualiza a revista, mas não o usuário. Regra de negócio
+    // Função de atualização ///// Atualiza a revista, mas não o usuário. Regra de negócio
     async atualizarRevista(req, res) {
         try {
             const revista = await Revista.findByIdAndUpdate(
@@ -83,6 +91,7 @@ const RevistaController = {
         }
     },
 
+    // Função de exclusão
     async excluirRevista(req, res) {
         try {
             const revista = await Revista.findByIdAndDelete(req.params.id);

@@ -1,7 +1,9 @@
-import Assinatura from '../models/Assinatura.js'
-import Revista from '../models/Revista.js'
+// Arquivo controller para Assinaturas
+import Assinatura from '../models/Assinatura.js';
+import Revista from '../models/Revista.js';
 
 const AssinaturaController = {
+    // Função de cadastro
     async cadastrar(req, res) {
         const { usuario, revista } = req.body;
     
@@ -42,30 +44,36 @@ const AssinaturaController = {
         }
     },    
 
+    // Função de listagem
     async listarAssinaturas(req, res) {
         const { pagina = 1, limite = 5 } = req.query;
 
-        try {
-            const assinaturas = await Assinatura.find({ usuario: req.usuario._id })
-                .populate('revista')
-                .limit(limite * 1)
-                .skip((pagina - 1) * limite)
-                .exec();
-
-            const contagem = await Assinatura.countDocuments({ usuario: req.usuario._id });
-
-            res.json({
-                assinaturas,
-                totalPaginas: Math.ceil(contagem / limite),
-                paginaAtual: pagina,
-            });
-        } catch (erro) {
-            res.status(500).json({
-                erro: "Erro no servidor"
-            });
+        if (limite != 5 && limite != 10 && limite != 30) {
+            res.status(400).json({ mensagem: 'O limite deve ser 5, 10 ou 30.' });
+        } else {
+            try {
+                const assinaturas = await Assinatura.find({ usuario: req.usuario._id })
+                    .populate('revista')
+                    .limit(limite * 1)
+                    .skip((pagina - 1) * limite)
+                    .exec();
+    
+                const contagem = await Assinatura.countDocuments({ usuario: req.usuario._id });
+    
+                res.json({
+                    assinaturas,
+                    totalPaginas: Math.ceil(contagem / limite),
+                    paginaAtual: pagina,
+                });
+            } catch (erro) {
+                res.status(500).json({
+                    erro: "Erro no servidor"
+                });
+            }
         }
     },
 
+    // Função de busca
     async obterAssinaturaPorId(req, res) {
         const { id } = req.params;
 
@@ -89,6 +97,7 @@ const AssinaturaController = {
         }
     },
 
+    // Função de atualização
     async atualizarAssinatura(req, res) {
         try {
             const assinatura = await Assinatura.findById(req.params.id);
@@ -135,6 +144,7 @@ const AssinaturaController = {
         }
     },
 
+    // Função de exclusão
     async excluirAssinatura(req, res) {
         try {
             const assinatura = await Assinatura.findById(req.params.id);

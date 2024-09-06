@@ -1,3 +1,4 @@
+// Arquivo de modelo para Assinaturas
 import mongoose from "mongoose";
 
 const EsquemaAssinatura = new mongoose.Schema({

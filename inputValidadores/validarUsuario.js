@@ -1,3 +1,4 @@
+// Arquivo para validar dados de Usuários
 import Joi from 'joi';
 
 const userSchema = Joi.object({

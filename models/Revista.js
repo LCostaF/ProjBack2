@@ -1,3 +1,4 @@
+// Arquivo de modelo para Revistas
 import mongoose from "mongoose";
 
 const EsquemaRevista = new mongoose.Schema({

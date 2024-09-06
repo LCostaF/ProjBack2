@@ -1,5 +1,6 @@
-import mongoose from "mongoose"
-import bcrypt from "bcrypt"
+// Arquivo de modelo para Usuários
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const EsquemaUsuario = new mongoose.Schema({
   nome: {
@@ -21,6 +22,7 @@ const EsquemaUsuario = new mongoose.Schema({
   }
 });
 
+// Usa o import bcrypt para criptografar a senha do usuário com uso de Hash
 EsquemaUsuario.statics.criptografarSenha = async function(senha) {
   const sal = await bcrypt.genSalt(12);
   return bcrypt.hash(senha, sal);
