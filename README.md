@@ -1,6 +1,6 @@
 <div align="center">
 
-![alt text](image.png)
+![image_info](./assets/banner.png)
 
 ![image_info](https://img.shields.io/badge/Aluno-Lucas_Costa_Fuganti-purple)
 ![image_info](https://img.shields.io/badge/RA-2209675-red)
@@ -19,7 +19,7 @@ Os relacionamentos entre Usuários, Assinaturas e Revistas está descrito no dia
 
 <div align="center">
 
-![alt text](image-1.png)
+![image_info](./assets/diagrama.png)
 
 - Um Usuário pode ter nenhuma, uma ou várias Assinaturas;
 - Uma Revista pode estar em nenhuma, uma ou várias Assinaturas;
