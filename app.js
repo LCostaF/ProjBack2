@@ -2,7 +2,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from 'dotenv';
-import conexaoBanco from './dbMongo/conexaoDb.js';
+import conexaoBanco from './mongo/bd.js';
 import rotas from './routes/rotas.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from './swagger_doc.json' assert { type: 'json' };
