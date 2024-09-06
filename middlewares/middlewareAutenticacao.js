@@ -2,14 +2,17 @@
 import jwt from 'jsonwebtoken';
 import Usuario from '../models/Usuario.js';
 
+// Verifica se o Token de acesso está presente
 async function verificarToken(req, res, next) {
     const cabecalhoAutorizacao = req.headers['authorization']
     const token = cabecalhoAutorizacao && cabecalhoAutorizacao.split(" ")[1]
 
+    // Se não conseguir obter token
     if (!token) {
         return res.status(401).json({ mensagem: "Acesso negado, token ausente" })
     }
 
+    // Utiliza token e SECRET para buscar um Usuário correspondente
     try {
         const segredo = process.env.SECRET
         const decodificado = jwt.verify(token, segredo)
@@ -26,13 +29,17 @@ async function verificarToken(req, res, next) {
     }
 }
 
+// Verifica se o usuário é um Administrador
 async function verificarAdmin(req, res, next) {
     const cabecalhoAutorizacao = req.headers['authorization']
     const token = cabecalhoAutorizacao && cabecalhoAutorizacao.split(" ")[1]
+
+    // Se não conseguir obter token
     if (!token) {
         return res.status(401).json({ mensagem: "Acesso negado" })
     }
 
+    // Utiliza token e SECRET para buscar um Usuário correspondente, e validar se usuario.admin é true
     try {
         const segredo = process.env.SECRET
         const decodificado = jwt.verify(token, segredo)

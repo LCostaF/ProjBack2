@@ -68,7 +68,7 @@ const RevistaController = {
         }
     },
 
-    // Função de atualização ///// Atualiza a revista, mas não o usuário. Regra de negócio
+    // Função de atualização
     async atualizarRevista(req, res) {
         try {
             const revista = await Revista.findByIdAndUpdate(

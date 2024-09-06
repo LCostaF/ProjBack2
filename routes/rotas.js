@@ -32,6 +32,7 @@ router.post('/login', validaLogin, autenticacao, (req, res) => {
 });
 
 // ------ Rotas para Usuários ------------------------------------------------------------------------------------------
+// Cadastrar Usuário
 router.post('/usuario/registro', validarUsuario, UsuarioController.cadastrar, (req, res) => {
     /*  #swagger.tags = ['Usuário']
         #swagger.description = 'Endpoint para registrar um novo usuário'
@@ -51,6 +52,7 @@ router.post('/usuario/registro', validarUsuario, UsuarioController.cadastrar, (r
         } */
 });
 
+// Criar Administrador
 router.post('/usuario/cria-admin', verificarAdmin, UsuarioController.criarAdmin, (req, res) => {
     /*  #swagger.tags = ['Usuário']
         #swagger.description = 'Endpoint para criar um usuário administrador'
@@ -67,6 +69,7 @@ router.post('/usuario/cria-admin', verificarAdmin, UsuarioController.criarAdmin,
         } */
 });
 
+// Deletar Usuário
 router.delete('/usuario/deleta-usuario/:id', verificarAdmin, UsuarioController.excluirUsuario, (req, res) => {
     /*  #swagger.tags = ['Usuário']
         #swagger.description = 'Endpoint para deletar um usuário'
@@ -78,6 +81,7 @@ router.delete('/usuario/deleta-usuario/:id', verificarAdmin, UsuarioController.e
         } */
 });
 
+// Atualizar Usuário
 router.put('/usuario/atualiza-usuario/:id', verificarToken, UsuarioController.atualizarUsuario, (req, res) => {
     /*  #swagger.tags = ['Usuário']
         #swagger.description = 'Endpoint para atualizar informações de um usuário'
@@ -101,11 +105,13 @@ router.put('/usuario/atualiza-usuario/:id', verificarToken, UsuarioController.at
         } */
 });
 
+// Listar Usuários
 router.get('/usuarios', verificarAdmin, UsuarioController.listarUsuarios, (req, res) => {
     /*  #swagger.tags = ['Usuário']
         #swagger.description = 'Endpoint para listar todos os usuários' */
 });
 
+// Buscar Usuário
 router.get('/usuario/:id', verificarAdmin, UsuarioController.obterUsuarioPorId, (req, res) => {
     /*  #swagger.tags = ['Usuário']
         #swagger.description = 'Endpoint para obter informações de um usuário pelo ID'
@@ -118,6 +124,7 @@ router.get('/usuario/:id', verificarAdmin, UsuarioController.obterUsuarioPorId, 
 });
 
 // ------ Rotas para Revistas ------------------------------------------------------------------------------------------
+// Criar Revista
 router.post('/revista/cadastrar', verificarToken, RevistaController.cadastrar, (req, res) => {
     /*  #swagger.tags = ['Revista']
         #swagger.description = 'Endpoint para cadastrar uma nova revista'
@@ -136,11 +143,13 @@ router.post('/revista/cadastrar', verificarToken, RevistaController.cadastrar, (
         } */
 });
 
+// Listar Revistas
 router.get('/revistas', RevistaController.listarRevistas, (req, res) => {
     /*  #swagger.tags = ['Revista']
         #swagger.description = 'Endpoint para listar todas as revistas' */
 });
 
+// Buscar Revista
 router.get('/revista/:id', RevistaController.obterRevistaPorId, (req, res) => {
     /*  #swagger.tags = ['Revista']
         #swagger.description = 'Endpoint para obter informações de uma revista pelo ID'
@@ -152,6 +161,7 @@ router.get('/revista/:id', RevistaController.obterRevistaPorId, (req, res) => {
         } */
 });
 
+// Atualizar Revista
 router.put('/revista/atualizar/:id', verificarToken, RevistaController.atualizarRevista, (req, res) => {
     /*  #swagger.tags = ['Revista']
         #swagger.description = 'Endpoint para atualizar uma revista pelo ID'
@@ -175,6 +185,7 @@ router.put('/revista/atualizar/:id', verificarToken, RevistaController.atualizar
         } */
 });
 
+// Deletar Revista
 router.delete('/revista/excluir/:id', verificarToken, RevistaController.excluirRevista, (req, res) => {
     /*  #swagger.tags = ['Revista']
         #swagger.description = 'Endpoint para deletar uma revista pelo ID'
@@ -187,6 +198,7 @@ router.delete('/revista/excluir/:id', verificarToken, RevistaController.excluirR
 });
 
 // ------ Rotas para Assinaturas ------------------------------------------------------------------------------------------
+// Criar Assinatura
 router.post('/assinatura/cadastrar', verificarToken, AssinaturaController.cadastrar, (req, res) => {
     /*  #swagger.tags = ['Assinatura']
         #swagger.description = 'Endpoint para cadastrar uma nova assinatura'
@@ -209,6 +221,7 @@ router.post('/assinatura/cadastrar', verificarToken, AssinaturaController.cadast
         #swagger.responses[500] = { description: 'Erro interno ao cadastrar a assinatura' } */
 });
 
+// Listar Assinaturas
 router.get('/assinaturas', verificarToken, AssinaturaController.listarAssinaturas, (req, res) => {
     /*  #swagger.tags = ['Assinatura']
         #swagger.description = 'Endpoint para listar todas as assinaturas'
@@ -231,6 +244,7 @@ router.get('/assinaturas', verificarToken, AssinaturaController.listarAssinatura
         #swagger.responses[500] = { description: 'Erro interno ao listar assinaturas' } */
 });
 
+// Buscar Assinatura
 router.get('/assinatura/:id', verificarToken, AssinaturaController.obterAssinaturaPorId, (req, res) => {
     /*  #swagger.tags = ['Assinatura']
         #swagger.description = 'Endpoint para obter uma assinatura específica por ID'
@@ -254,6 +268,7 @@ router.get('/assinatura/:id', verificarToken, AssinaturaController.obterAssinatu
         #swagger.responses[500] = { description: 'Erro interno ao buscar a assinatura' } */
 });
 
+// Atualizar Assinaturas
 router.put('/assinatura/atualizar/:id', verificarToken, AssinaturaController.atualizarAssinatura, (req, res) => {
     /*  #swagger.tags = ['Assinatura']
         #swagger.description = 'Endpoint para atualizar uma assinatura existente por ID'
@@ -284,6 +299,7 @@ router.put('/assinatura/atualizar/:id', verificarToken, AssinaturaController.atu
         #swagger.responses[500] = { description: 'Erro interno ao atualizar a assinatura' } */
 });
 
+// Deletar Assinatura
 router.delete('/assinatura/excluir/:id', verificarToken, AssinaturaController.excluirAssinatura, (req, res) => {
     /*  #swagger.tags = ['Assinatura']
         #swagger.description = 'Endpoint para excluir uma assinatura por ID'

@@ -1,3 +1,4 @@
+// Arquivo controller para Autenticação
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
 import Usuario from '../models/Usuario.js';
@@ -8,12 +9,14 @@ const autenticacao = async (req, res) => {
 
     const usuario = await Usuario.findOne({ email })
 
+    // Usuário não existe ou não foi encontrado
     if(!usuario) {
         return res.status(404).json({
             mensagem: "Usuário não encontrado"
         })
     }
 
+    // Compara senhas com criptografia
     const senhaCorreta = await bcrypt.compare(senha, usuario.senha)
 
     if(!senhaCorreta) {
@@ -22,8 +25,8 @@ const autenticacao = async (req, res) => {
         })
     }
 
+    // Utiliza SECRET e EXPIRE para obter token de autenticação
     try {
-
         const segredoJwt = process.env.SECRET
         const expiracaoJwt = process.env.EXPIRE
 

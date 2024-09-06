@@ -16,11 +16,13 @@ async function verificaConexao() {
         console.log(`Erro ao conectar com o bd`)
 }
 
+// Usa arquivo de rotas e também prepara rota para Swagger
 function instanciaRotas(app) {
     app.use(rotas)
     app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 }
 
+// Função principal
 function main() {
     const app = express()
     app.use(cors())
@@ -37,4 +39,5 @@ function main() {
     });
 }
 
+// Executa
 main()

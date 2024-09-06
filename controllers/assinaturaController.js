@@ -97,7 +97,7 @@ const AssinaturaController = {
         }
     },
 
-    // Função de atualização
+    // Função de atualização - Atualiza a revista, mas não o usuário
     async atualizarAssinatura(req, res) {
         try {
             const assinatura = await Assinatura.findById(req.params.id);
@@ -108,10 +108,11 @@ const AssinaturaController = {
                 });
             }
     
-            if (assinatura.usuario.toString() !== req.usuario._id.toString()) {
-                return res.status(403).json({ erro: 'Não autorizado' });
+            // Se houver Usuário no body dispara erro - Não é permitido alterar o Usuário assinante de uma assinatura
+            if (req.body.usuario) {
+                return res.status(403).json({ erro: 'Não é permitido alterar o Usuário assinante' });
             }
-    
+
             // Atualiza a revista se fornecida
             if (req.body.revista) {
                 const novaRevista = await Revista.findById(req.body.revista);
@@ -138,6 +139,7 @@ const AssinaturaController = {
     
             res.json(assinatura);
         } catch (erro) {
+            console.log(erro)
             res.status(500).json({
                 erro: "Erro no servidor"
             });
