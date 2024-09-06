@@ -32,6 +32,7 @@ Os relacionamentos entre Usuários, Assinaturas e Revistas está descrito no dia
 
 O código do projeto está estruturado em diretórios e arquivos separados de modo a agrupar códigos de propósitos semelhante. Está organizado da seguinte forma:
 
+- **assets**: Diretório com imagens utilizadas neste arquivo README;
 - **controllers**: Diretório para os arquivos controladores dos modelos e do sistema de autenticação;
 - **inputValidadores**: Diretório com modelos e implementação de validadores;
 - **middlewares**: Diretório para os middlewares utilizados nas rotas;
