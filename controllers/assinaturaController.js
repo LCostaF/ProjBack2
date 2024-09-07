@@ -73,6 +73,40 @@ const AssinaturaController = {
         }
     },
 
+    // Listar revistas que o usuário logado assina
+    async listarRevistasAssinadas(req, res) {
+        const { pagina = 1, limite = 5 } = req.query;
+
+        if (limite != 5 && limite != 10 && limite != 30) {
+            res.status(400).json({ mensagem: 'O limite deve ser 5, 10 ou 30.' });
+        } else {
+            try {
+                const assinaturas = await Assinatura.find({ usuario: req.usuario._id })
+                    .populate('revista', 'titulo categoria descricao')
+                    .limit(limite * 1)
+                    .skip((pagina - 1) * limite)
+                    .exec();
+    
+                if (!assinaturas.length) {
+                    return res.status(404).json({ mensagem: 'Nenhuma revista encontrada para o usuário' });
+                }
+    
+                // Extrai as revistas das assinaturas
+                const revistas = assinaturas.map(assinatura => assinatura.revista);
+    
+                res.status(200).json({
+                    revistas,
+                    totalRevistas: revistas.length,
+                });
+            } catch (erro) {
+                res.status(500).json({
+                    mensagem: "Erro no servidor",
+                    erro
+                });
+            }
+        }
+    },
+
     // Função de busca
     async obterAssinaturaPorId(req, res) {
         const { id } = req.params;
@@ -172,5 +206,7 @@ const AssinaturaController = {
         }
     }
 };
+
+
 
 export default AssinaturaController;

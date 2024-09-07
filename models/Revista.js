@@ -18,4 +18,6 @@ const EsquemaRevista = new mongoose.Schema({
 
 const Revista = mongoose.model('Revista', EsquemaRevista)
 
+// listar revistas que o usuário logado assina
+
 export default Revista;

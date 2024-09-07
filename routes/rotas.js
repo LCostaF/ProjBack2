@@ -198,6 +198,12 @@ router.delete('/revista/excluir/:id', verificarToken, RevistaController.excluirR
 });
 
 // ------ Rotas para Assinaturas ------------------------------------------------------------------------------------------
+
+router.get('/revistas-assinadas', verificarToken, AssinaturaController.listarRevistasAssinadas, (req, res) => {
+    /*  #swagger.tags = ['Assinatura']
+        #swagger.description = 'Endpoint para listar todas as revistas que o usuário logado assina' */
+});
+
 // Criar Assinatura
 router.post('/assinatura/cadastrar', verificarToken, AssinaturaController.cadastrar, (req, res) => {
     /*  #swagger.tags = ['Assinatura']
